@@ -25,6 +25,10 @@ def seq_read_fasta(filename):
     return "".join(body)
 
 
+def seq_len(seq):
+    return len(seq)
+
+
 def seq_count_base(seq, base):
     """
     Counting the give base on the sequence
@@ -44,10 +48,6 @@ def seq_count(seq):
     res = {'A': seq_count_base(seq, 'A'), 'T': seq_count_base(seq, 'T'),
            'C': seq_count_base(seq, 'C'), 'G': seq_count_base(seq, 'G')}
     return res
-
-
-def seq_len(seq):
-    return len(seq)
 
 
 def seq_perc(seq):
