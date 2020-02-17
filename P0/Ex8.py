@@ -15,7 +15,7 @@ for gene in GENES:
     d = seq_count(seq)
 
     # -- Create a list with all the values
-    ll = [v for v in d.values()]
+    ll = list(d.values())
 
     # -- Calculate the maximum
     m = max(ll)
