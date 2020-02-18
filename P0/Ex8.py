@@ -3,7 +3,7 @@ from Seq0 import *
 PRACTICE = 8
 FOLDER = "../Session-04/"
 EXT = ".txt"
-GENES = ["U5", "ADA", "FRAT1", "FXN", "U5"]
+GENES = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
 BASES = ['A', 'T', 'C', 'G']
 
 print(f"-----| Exercise {PRACTICE} |------")
