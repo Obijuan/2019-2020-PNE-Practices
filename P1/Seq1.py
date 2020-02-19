@@ -105,6 +105,11 @@ class Seq:
         :return: String
         """
 
+        # -- In case of Null or invalid sequences the
+        # -- complement is not calculated
+        if self.strbases in [self.NULL, self.ERROR]:
+            return self.strbases
+
         # -- Dictionary of complement bases
         basec = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
 
