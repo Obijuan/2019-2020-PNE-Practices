@@ -94,7 +94,10 @@ class Seq:
         Return the reverse sequence
         :return: String
         """
-        return self.strbases[::-1]
+        if self.strbases in [self.NULL, self.ERROR]:
+            return self.strbases
+        else:
+            return self.strbases[::-1]
 
     def complement(self):
         """
