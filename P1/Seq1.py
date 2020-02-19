@@ -2,20 +2,25 @@ from pathlib import Path
 
 
 class Seq:
-    def __init__(self, strbases="NULL"):
+
+    # -- Identification string for the Null and Invalid sequences
+    NULL = "NULL"
+    ERROR = "ERROR"
+
+    def __init__(self, strbases=NULL):
         """Constructor:
         :type strbases: string with the bases of the sequence
         """
 
         # -- Check if it is the null seq
-        if strbases == "NULL":
-            self.strbases = "NULL"
+        if strbases == self.NULL:
+            self.strbases = self.NULL
             print("NULL Seq created")
             return
 
         # -- Check if the string passed by the user is valid
         if not self.valid_str(strbases):
-            self.strbases = "ERROR"
+            self.strbases = self.ERROR
             print("INVALID Seq!")
             return
 
@@ -47,7 +52,10 @@ class Seq:
         return True
 
     def len(self):
-        return len(self.strbases)
+        if self.strbases in [self.NULL, self.ERROR]:
+            return 0
+        else:
+            return len(self.strbases)
 
     def read_fasta(self, filename):
         """
