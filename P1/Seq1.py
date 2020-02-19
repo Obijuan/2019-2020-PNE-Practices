@@ -71,6 +71,7 @@ class Seq:
 
         # -- Store the sequence read from the file
         self.strbases = "".join(body)
+        return self
 
     def count_base(self, base):
         """
