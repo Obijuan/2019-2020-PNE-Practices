@@ -82,3 +82,4 @@ def seq_complement(seq):
         res += basec[b]
 
     return res
+
