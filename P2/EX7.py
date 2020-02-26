@@ -54,8 +54,8 @@ for i in range(10):
 
     # -- even fragments (counting from 0) are sent to server 1
     if i % 2:
-        c1.talk(msg)
+        c2.talk(msg)
 
     # -- Odd segments are sent to server 2
     else:
-        c2.talk(msg)
+        c1.talk(msg)
