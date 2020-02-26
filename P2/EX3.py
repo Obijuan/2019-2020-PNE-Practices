@@ -17,4 +17,5 @@ print(c)
 
 # -- Send a message to the server
 print("Sending a message to the server...")
-c.talk("Testing!!!")
+response = c.talk("Testing!!!")
+print(f"Response: {response}")
