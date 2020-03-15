@@ -1,5 +1,6 @@
 import http.server
 import socketserver
+import termcolor
 
 # Define the Server's port
 PORT = 8080
@@ -17,7 +18,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         in the HTTP protocol request"""
 
         # We just print a message
-        print("GET received!")
+        print("GET received! Request line:")
+
+        # Print the request line
+        termcolor.cprint("  " + self.requestline, 'green')
+
+        # Print the command received (should be GET)
+        print("  Command: " + self.command)
+
+        # Print the resource requested (the path)
+        print("  Path: " + self.path)
 
         # IN this simple server version:
         # We are NOT processing the client's request
@@ -42,5 +52,5 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("")
-        print("Stopped by the user")
+        print("Stoped by the user")
         httpd.server_close()
