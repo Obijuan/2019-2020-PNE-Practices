@@ -21,4 +21,5 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("Server Stopped!")
-        exit()
+        httpd.server_close()
+
