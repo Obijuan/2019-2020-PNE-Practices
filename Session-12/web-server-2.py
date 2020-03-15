@@ -54,7 +54,7 @@ def process_client(s):
     header += f"Content-Length: {len(body)}\n"
 
     # -- Build the message by joining together all the parts
-    response_msg = status_line + header + "\r\n" + body
+    response_msg = status_line + header + "\n" + body
     cs.send(response_msg.encode())
 
 
