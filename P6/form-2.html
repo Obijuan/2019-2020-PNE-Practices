@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Practice 6. EX-01</title>
+  </head>
+  <body>
+    <h1>SEQ2 server</h1>
+    <p>Access to the Server</p>
+    <hr>
+    <form action="ping" method="get">
+      Is the server alive? <input type="submit" value="PING">
+    </form>
+    <hr>
+    <form action="get" method="get">
+    Get a Sequence. Select sequence number
+      <select name="n">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+      <input type="submit" value="GET">
+    </form>
+
+  </body>
+</html>

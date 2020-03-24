@@ -10,6 +10,15 @@ PORT = 8080
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
+# -- Sequences for the GET command
+SEQ_GET = [
+    "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA",
+    "AAAAACATTAATCTGTGGCCTTTCTTTGCCATTTCCAACTCTGCCACCTCCATCGAACGA",
+    "CAAGGTCCCCTTCTTCCTTTCCATTCCCGTCAGCTTCATTTCCCTAATCTCCGTACAAAT",
+    "CCCTAGCCTGACTCCCTTTCCTTTCCATCCTCACCAGACGCCCGCATGCCGGACCTCAAA",
+    "AGCGCAAACGCTAAAAACCGGTTGAGTTGACGCACGGAGAGAAGGGGTGTGTGGGTGGGT",
+]
+
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
@@ -42,7 +51,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if verb == "/":
             # Open the form1.html file
             # Read the index from the file
-            contents = Path('form-1.html').read_text()
+            contents = Path('form-2.html').read_text()
             error_code = 200
         elif verb == "/ping":
             contents = """
@@ -59,6 +68,34 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             </body>
             </html>
             """
+            error_code = 200
+        elif verb == "/get":
+            # -- Get the argument to the right of the ? symbol
+            pair = arguments[1]
+            # -- Get all the pairs name = value
+            pairs = pair.split('&')
+            # -- Get the two elements: name and value
+            name, value = pairs[0].split("=")
+            n = int(value)
+
+            # -- Get the sequence
+            seq = SEQ_GET[n]
+
+            # -- Generate the html code
+            contents = f"""
+                        <!DOCTYPE html>
+                        <html lang = "en">
+                        <head>
+                        <meta charset = "utf-8" >
+                          <title> GET </title >
+                        </head >
+                        <body>
+                        <h2> Sequence number {n}</h2>
+                        <p> {seq} </p>
+                        <a href="/">Main page</a>
+                        </body>
+                        </html>
+                        """
             error_code = 200
 
         elif verb == "/echo":
