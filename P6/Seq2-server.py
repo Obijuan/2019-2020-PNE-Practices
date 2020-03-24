@@ -2,6 +2,7 @@ import http.server
 import socketserver
 import termcolor
 from pathlib import Path
+from Seq1 import Seq
 
 # Define the Server's port
 PORT = 8080
@@ -18,6 +19,9 @@ SEQ_GET = [
     "CCCTAGCCTGACTCCCTTTCCTTTCCATCCTCACCAGACGCCCGCATGCCGGACCTCAAA",
     "AGCGCAAACGCTAAAAACCGGTTGAGTTGACGCACGGAGAGAAGGGGTGTGTGGGTGGGT",
 ]
+
+FOLDER = "../Session-04/"
+EXT = ".txt"
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -51,7 +55,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if verb == "/":
             # Open the form1.html file
             # Read the index from the file
-            contents = Path('form-2.html').read_text()
+            contents = Path('form-3.html').read_text()
             error_code = 200
         elif verb == "/ping":
             contents = """
@@ -97,35 +101,34 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         </html>
                         """
             error_code = 200
-
-        elif verb == "/echo":
+        elif verb == "/gene":
             # -- Get the argument to the right of the ? symbol
             pair = arguments[1]
             # -- Get all the pairs name = value
             pairs = pair.split('&')
             # -- Get the two elements: name and value
-            name, value = pairs[0].split("=")
+            name, gene = pairs[0].split("=")
 
-            chk_value = ""
-            if len(pairs) > 1:
-                chk, chk_value = pairs[1].split("=")
-                if chk == "chk":
-                    value = value.upper()
-
+            s = Seq()
+            s.read_fasta(FOLDER + gene + EXT)
+            gene_str = str(s)
             # -- Generate the html code
-            contents = """
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="utf-8">
-                <title>RESULT</title>
-            </head>
-            <body>
-            <h2>Received message:</h2>
-            """
-            contents += f"<p>{value}</p>"
-            contents += '<a href="/">Main page</a>'
-            contents += "</body></html>"
+            contents = f"""
+                        <!DOCTYPE html>
+                        <html lang = "en">
+                        <head>
+                        <meta charset = "utf-8" >
+                          <title> GENE </title >
+                        </head >
+                        <body>
+                        <h2> Gene: {gene}</h2>
+                        <textarea readonly rows="20" cols="80"> {gene_str} </textarea>
+                        <br>
+                        <br>
+                        <a href="/">Main page</a>
+                        </body>
+                        </html>
+                        """
             error_code = 200
 
         # Generating the response message
