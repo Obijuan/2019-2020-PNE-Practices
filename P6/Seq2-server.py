@@ -55,7 +55,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if verb == "/":
             # Open the form1.html file
             # Read the index from the file
-            contents = Path('form-3.html').read_text()
+            contents = Path('form-4.html').read_text()
             error_code = 200
         elif verb == "/ping":
             contents = """
@@ -123,6 +123,62 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         <body>
                         <h2> Gene: {gene}</h2>
                         <textarea readonly rows="20" cols="80"> {gene_str} </textarea>
+                        <br>
+                        <br>
+                        <a href="/">Main page</a>
+                        </body>
+                        </html>
+                        """
+            error_code = 200
+        elif verb == "/operation":
+            # -- Get the argument to the right of the ? symbol
+            pair = arguments[1]
+            # -- Get all the pairs name = value
+            pairs = pair.split('&')
+            # -- Get the two elements: name and value
+            name, seq = pairs[0].split("=")
+            # -- Get the two elements of the operation
+            name, op = pairs[1].split("=")
+
+            # -- Create the sequence
+            s = Seq(seq)
+
+            if op == "comp":
+                result = s.complement()
+            elif op == "rev":
+                result = s.reverse()
+            else:
+                sl = s.len()
+                ca = s.count_base('A')
+                pa = "{:.1f}".format(100 * ca / sl)
+                cc = s.count_base('C')
+                pc = "{:.1f}".format(100 * cc / sl)
+                cg = s.count_base('G')
+                pg = "{:.1f}".format(100 * cg / sl)
+                ct = s.count_base('T')
+                pt = "{:.1f}".format(100 * ct / sl)
+
+                result = f"""
+                <p>Total length: {sl}</p>
+                <p>A: {ca} ({pa}%)</p>
+                <p>C: {cc} ({pc}%)</p>
+                <p>G: {cg} ({pg}%)</p>
+                <p>T: {ct} ({pt}%)</p>"""
+
+            contents = f"""
+                        <!DOCTYPE html>
+                        <html lang = "en">
+                        <head>
+                        <meta charset = "utf-8" >
+                          <title> OPERATION </title >
+                        </head >
+                        <body>
+                        <h2> Sequence </h2>
+                        <p>{seq}</p>
+                        <h2> Operation: </h2>
+                        <p>{op}</p>
+                        <h2> Result: </h2>
+                        <p>{result}</p>
                         <br>
                         <br>
                         <a href="/">Main page</a>
