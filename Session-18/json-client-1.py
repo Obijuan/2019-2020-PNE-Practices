@@ -13,7 +13,7 @@ conn = http.client.HTTPConnection(SERVER, PORT)
 # -- Send the request message, using the GET method. We are
 # -- requesting the main page (/)
 try:
-    conn.request("GET", "/")
+    conn.request("GET", "/listusers")
 except ConnectionRefusedError:
     print("ERROR! Cannot connect to the Server")
     exit()
